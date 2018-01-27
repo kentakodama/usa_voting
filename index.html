@@ -26,7 +26,11 @@
                     .attr('width', width)
       
       const handleHover = function(d) {
-        console.log(d.id);
+        let countyId = d.id
+        if (!countyId) {
+          countyId = countyId.slice(1)
+        }
+        console.log(countiesIndex[countyId]);
       }
       
       const countiesIndex = {}
