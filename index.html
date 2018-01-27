@@ -24,8 +24,11 @@
                     .append('svg')
                     .attr('height', height)
                     .attr('width', width)
+      
+      
       const countiesIndex = {}
       
+      //this pulls th3 data from the tsv file then makes a hash of counties
       d3.tsv("us-county-names.tsv", function(data) {
         console.log(data[0]);
         for (var i = 0; i < data.length; i++) {
@@ -39,7 +42,7 @@
         if (!countiesIndex[countyId]) {
           countyId = countyId.slice(1)
         }
-        console.log(countiesIndex[countyId]);
+        console.log(countiesIndex[countyId] + ' County');
       }
       
                     
