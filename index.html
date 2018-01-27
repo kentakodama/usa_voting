@@ -24,15 +24,6 @@
                     .append('svg')
                     .attr('height', height)
                     .attr('width', width)
-      
-      const handleHover = function(d) {
-        let countyId = d.id
-        if (!countyId) {
-          countyId = countyId.slice(1)
-        }
-        console.log(countiesIndex[countyId]);
-      }
-      
       const countiesIndex = {}
       
       d3.tsv("us-county-names.tsv", function(data) {
@@ -40,9 +31,17 @@
         for (var i = 0; i < data.length; i++) {
           countiesIndex[data[i].id] = data[i].name
         }
-        
-        console.log(countiesIndex);
+
       });
+      
+      const handleHover = function(d) {
+        let countyId = d.id
+        if (!countiesIndex[countyId]) {
+          countyId = countyId.slice(1)
+        }
+        console.log(countiesIndex[countyId]);
+      }
+      
                     
       d3.json("https://d3js.org/us-10m.v1.json", function(data) {
         console.log(data.objects.counties);
