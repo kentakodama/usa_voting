@@ -37,6 +37,11 @@
 
       });
       
+      d3.csv("election-results-by-county.csv", function(data) {
+        console.log(data);
+        
+      });
+      
       const handleHover = function(d) {
         let countyId = d.id
         if (!countiesIndex[countyId]) {
