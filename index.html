@@ -37,9 +37,14 @@
 
       });
       
+      const countiesVotesIndex = {}
+      
       d3.csv("election-results-by-county.csv", function(data) {
-        console.log(data);
         
+        for (var i = 0; i < data.length; i++) {
+          countiesVotesIndex[data[i].combined_fips] = Math.round(data[i].per_dem * 100);
+        }
+        console.log(countiesVotesIndex);
       });
       
       const handleHover = function(d) {
@@ -47,7 +52,8 @@
         if (!countiesIndex[countyId]) {
           countyId = countyId.slice(1)
         }
-        console.log(countiesIndex[countyId] + ' County');
+        //console.log(countiesIndex[countyId] + ' County');
+        console.log(countiesVotesIndex[d.id]);
       }
       
                     
@@ -59,12 +65,13 @@
         
         usa = map.selectAll('path').data(counties.features) //must always be features regardless of what it says in json
         
-        var color = d3.scaleLinear().domain([0,3141]).range(['red', 'blue']);
+        
+        var color = d3.scaleLinear().domain([0,100]).range(['red', 'blue']);
         
         usa.enter()
           .append('path')
           .attr('d', path)
-          .attr('fill', (d, i) => color(i) )
+          .attr('fill', (d) => color(countiesVotesIndex[parseInt(d.id)]))
           .on('mouseover', handleHover)
         usa.attr('fill', '#eee');
         
