@@ -28,14 +28,25 @@
       const handleHover = function(d) {
         console.log(d.id);
       }
+      
+      const countiesIndex = {}
+      
+      d3.tsv("us-county-names.tsv", function(data) {
+        console.log(data[0]);
+        for (var i = 0; i < data.length; i++) {
+          countiesIndex[data[i].id] = data[i].name
+        }
+        
+        console.log(countiesIndex);
+      });
                     
       d3.json("https://d3js.org/us-10m.v1.json", function(data) {
         console.log(data.objects.counties);
-        const states = topojson.feature(data, data.objects.counties)
+        const counties = topojson.feature(data, data.objects.counties)
         
         const map = svg.append('g')
         
-        usa = map.selectAll('path').data(states.features) //must always be features regardless of what it says in json
+        usa = map.selectAll('path').data(counties.features) //must always be features regardless of what it says in json
         
         var color = d3.scaleLinear().domain([0,3141]).range(['red', 'blue']);
         
