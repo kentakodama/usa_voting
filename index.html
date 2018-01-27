@@ -68,10 +68,16 @@
         
         var color = d3.scaleLinear().domain([0,100]).range(['red', 'blue']);
         
+        const colorify = function(data) {
+          let percent_democrats = countiesVotesIndex[parseInt(data.id)];
+          if(!percent_democrats) return '#9b0061'
+          return color(percent_democrats)
+        }
+        
         usa.enter()
           .append('path')
           .attr('d', path)
-          .attr('fill', (d) => color(countiesVotesIndex[parseInt(d.id)]))
+          .attr('fill', (d) => colorify(d))
           .on('mouseover', handleHover)
         usa.attr('fill', '#eee');
         
