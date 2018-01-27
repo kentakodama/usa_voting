@@ -14,7 +14,7 @@
     <script>
       
       const height = 600;
-      const width = 900;
+      const width = 1200;
       
       let usa = void 0;
       
@@ -24,6 +24,10 @@
                     .append('svg')
                     .attr('height', height)
                     .attr('width', width)
+      
+      const handleHover = function(d) {
+        console.log(d.id);
+      }
                     
       d3.json("https://d3js.org/us-10m.v1.json", function(data) {
         console.log(data.objects.counties);
@@ -38,8 +42,8 @@
         usa.enter()
           .append('path')
           .attr('d', path)
-          attr('fill' )
-          
+          .attr('fill', (d, i) => color(i) )
+          .on('mouseover', handleHover)
         usa.attr('fill', '#eee');
         
         usa.exit().remove();
